@@ -1,0 +1,6 @@
+export * from './Login'
+export * from './Inicio'
+export * from './Contacto'
+export * from './Acerca'
+export * from './Articulos'
+export * from './Error'

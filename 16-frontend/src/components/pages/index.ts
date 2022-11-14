@@ -1,0 +1,7 @@
+export * from "./Articulo"
+export * from "./Articulos"
+export * from "./Busqueda"
+export * from "./Crear"
+export * from "./Editar"
+export * from "./Articulo"
+export * from "./Inicio"
