@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../../context/UserContext";
 import { LoginForm } from "../forms/LoginForm";
+import { Loading } from "../utils/Loading";
 
 export const Login = () => {
- 
+ const {loading}=useContext(UserContext)
   return (
     <div className="container mt-4">
       <div className="row">
@@ -14,7 +16,11 @@ export const Login = () => {
               <div className="card-header text-center mt-3"><h4>Inicio de Sesion de Jefe</h4></div>
 
             <div className="card-body">
-              <LoginForm />
+
+              {
+                (!loading)? <LoginForm /> : <Loading/>
+              }
+              
             </div>
           </div>
         </div>

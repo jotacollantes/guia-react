@@ -47,8 +47,8 @@ type ContextType = {
     }>
   >;
   updateEmpleado: (fields: Empleado) => Promise<void>;
-  loading:boolean;
-  setLoading:React.Dispatch<React.SetStateAction<boolean>>
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 interface Props {
@@ -84,8 +84,8 @@ export const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState(initialState);
 
   const [empleado, setEmpleado] = useState(initialStateEmpleado);
-  const [loading, setLoading] = useState(false)
-  
+  const [loading, setLoading] = useState(false);
+
   //!Leemos los datos del usuario desde el localstorage para hacer persistente la sesion
   useEffect(() => {
     //!En typescript hay que hacer doble lectura del LS, una para validar sin el parse y la otra que en caso de que exista info en el LS usando el parse
@@ -106,8 +106,11 @@ export const UserProvider = ({ children }: Props) => {
   const navigate = useNavigate();
 
   const loginUser = async (credentials: Login) => {
-    try {
-      const { data } = await ApiCall("login", "POST", credentials);
+    setLoading(true);
+    setTimeout(async() => {
+      try {
+      
+       const { data } = await ApiCall("login", "POST", credentials);
       //console.log("LoginUser: ", data);
       if (data.ok) {
         const userLogin = {
@@ -119,14 +122,20 @@ export const UserProvider = ({ children }: Props) => {
         localStorage.setItem("user", JSON.stringify(userLogin));
         setUser(userLogin);
         Alert(true, data.mensaje);
+        setLoading(false);
         navigate("/empleados");
       }
     } catch (error: Respuesta | any) {
+      console.log("entro");
       if (!error.response.data.ok) {
+        setLoading(false);
         return Alert(false, error.response.data.mensaje);
       }
+      setLoading(false);
       console.log(`Error en el front end: ${error.response.data.mensaje}`);
     }
+    }, 4000);
+    
   };
 
   const registerUser = async (fields: User) => {
@@ -175,13 +184,15 @@ export const UserProvider = ({ children }: Props) => {
   };
 
   const updateEmpleado = async (fields: Empleado) => {
-
-    const {_id,...rest}=fields
-    console.log(_id,rest)
+    const { _id, ...rest } = fields;
+    console.log(_id, rest);
     try {
-      
-
-      const { data } = await ApiCall(`empleado/update/${_id}`, "PUT", rest, user.token);
+      const { data } = await ApiCall(
+        `empleado/update/${_id}`,
+        "PUT",
+        rest,
+        user.token
+      );
 
       if (data.ok) {
         Alert(true, data.mensaje);
@@ -194,9 +205,6 @@ export const UserProvider = ({ children }: Props) => {
       console.log(`Error en el front end: ${error.response.data.mensaje}`);
     }
   };
-
-
-
 
   const logout = () => {
     setUser(initialState);
@@ -214,8 +222,8 @@ export const UserProvider = ({ children }: Props) => {
     empleado,
     setEmpleado,
     updateEmpleado,
-    loading, 
-    setLoading
+    loading,
+    setLoading,
   };
 
   return (
