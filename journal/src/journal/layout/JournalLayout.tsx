@@ -1,6 +1,6 @@
-import { Box } from '@mui/material'
+import { Box, Toolbar } from '@mui/material'
 import React from 'react'
-import { NavBar } from '../components';
+import { NavBar, SideBar } from '../components';
 interface Props {
     //! la prop children va a recibir JSX Elements o una lista de JSX Elements[]
   children: JSX.Element | JSX.Element[];
@@ -15,10 +15,12 @@ export const JournalLayout = ({children}: Props) => {
         {/* navbar drawerWidth*/}
         <NavBar drawerWidth={drawerWidth} /> 
         {/* Sidebar drawerWidth*/}
+        <SideBar />
     <Box component='main'
-    sx={{flexGrow:1,p:3}}
+    sx={{flexGrow:1,p:3,paddingLeft:35}}
     >
         {/* toolbar */}
+        <Toolbar/>
         {children}
 
 

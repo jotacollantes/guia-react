@@ -1,15 +1,32 @@
-import { Typography } from '@mui/material'
+import { AddOutlined } from '@mui/icons-material'
+import { IconButton, Typography } from '@mui/material'
 import React from 'react'
 import { JournalLayout } from '../layout/JournalLayout'
+import { NoteView, NothingSelectedView } from '../views'
 
 export const JournalPage = () => {
   return (
 
     <JournalLayout>
-       {/* para usar el h1 definido por el tme hay que usar Variant */}
-       <Typography >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, laborum veniam, dolore ea reiciendis ducimus dolor, eaque omnis provident at est laudantium beatae hic officiis cupiditate qui non facere quisquam?</Typography>
        {/* Nothing Selected  */}
+       <NothingSelectedView />
+        
+       
        {/* NoteView */}
+       <NoteView />
+       <IconButton
+       size='large'
+       sx={{color:'white',
+       backgroundColor:'error.main',
+       ':hover':{backgroundColor:'error.main',opacity:0.9},
+       position: 'fixed',
+       right:50,
+       bottom:50
+      }}
+       >
+        <AddOutlined />
+
+       </IconButton>
     </JournalLayout>
    
   )
