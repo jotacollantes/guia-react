@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-const URI="mongodb://localhost:27017/crud"
-//const URI="mongodb+srv://jjcollantes:Campeon2023*@cluster0.ntcmp.mongodb.net/crud"
+//const URI="mongodb://localhost:27017/crud"
+const URI="mongodb+srv://jjcollantes:Campeon2023*@cluster0.ntcmp.mongodb.net/crud"
 export const conexionDB= async()=>{
 
     try {
