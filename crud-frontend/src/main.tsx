@@ -6,7 +6,6 @@ import { UserProvider } from './context/UserContext'
 //https://bootswatch.com/lux/
 import './styles/bootstrap.min.css'
 import 'react-responsive-modal/styles.css';
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>

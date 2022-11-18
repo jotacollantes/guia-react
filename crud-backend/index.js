@@ -25,7 +25,6 @@ app.use(cors({origin:"*"}))
 //         message:"hello world"
 //     })
 // })
-
 //!Cargo las rutas a parti de la raiz /api
 app.use("/api",usuarioRouter)
 app.use("/api/empleado",empleadoRouter)
