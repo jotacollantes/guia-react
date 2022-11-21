@@ -1,22 +1,25 @@
 import { Google } from "@mui/icons-material";
-import { Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { Alert, Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { AuthLayout } from "../layout/AuthLayout";
 import { Formik, Form } from "formik";
 import * as Yup from "yup"; //* importo todo dentro de Yup
 import { MyTextInput } from "../forms";
-import { checkingAuthentication, startGoogleSignIn } from "../../store/auth";
+import { checkingAuthentication, startGoogleSignIn, startLoginWithEmailPassword } from "../../store/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 export const Login = () => {
  const dispatch=useDispatch()
 
+
+
+
   const onGoogleSignIn=()=>{
-    console.log("Login con google")
+    //console.log("Login con google")
     dispatch(startGoogleSignIn())
   }
 //!obtenemos el status del store
-  const {status}=useSelector((state: RootState)=>state.authReducer);
+  const {errorMessages,status}=useSelector((state: RootState)=>state.authReducer);
 
 
   //! isAuthenticating sera usado en la propiedad disabled de los botones. Esto se puede memorizar usando useMemo. Ver el video capitulo 277 
@@ -26,28 +29,30 @@ export const Login = () => {
     <AuthLayout title="Login">
       <Formik
         initialValues={{
-          correo: "",
+          email: "",
           password: "",
         }}
         onSubmit={(values) => {
           //console.log(values)
 
-          const { correo, password } = values;
+          const { email, password } = values;
 
-          // const credentialsUser = {
-          //   correo,
-          //   password,
-          // }
+          const credentialsUser = {
+            email,
+            password,
+          }
 
           //console.log(credentialsUser)
           //!con el dispatch de redux llamo al metodo checkingAuthentication que esta en el thunk
           
-          dispatch(checkingAuthentication(correo,password))
+          
+          dispatch(startLoginWithEmailPassword(credentialsUser))
         }}
         validationSchema={Yup.object({
-          correo: Yup.string() //*tiene que ser string
+          email: Yup.string() //*tiene que ser string
             //.min(5,'debe de tener 5 caracteres o mas')
             //.max(100,'debe de tener 15 caracteres o menos')
+            .email("Debe de ser un correo valido")
             .required("Requerido"),
 
           password: Yup.string() //*tiene que ser string
@@ -65,7 +70,7 @@ export const Login = () => {
                   <MyTextInput
                     label="Correo"
                     type="email"
-                    name="correo"
+                    name="email"
                     placeholder="correo@google.com"
                     fullWidth
                   />
@@ -80,6 +85,11 @@ export const Login = () => {
                   />
                 </Grid>
                 <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
+                {
+                errorMessages && <Grid item xs={12} >
+               <Alert severity='error'>{errorMessages}</Alert>
+              </Grid>
+              }
                   <Grid item xs={12} sm={6}>
                     <Button
                     variant="contained"

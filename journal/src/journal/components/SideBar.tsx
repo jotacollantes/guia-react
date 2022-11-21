@@ -1,9 +1,13 @@
 import { TurnedInNot } from '@mui/icons-material'
 import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store'
 
 
 export const SideBar = ({drawerWidth=240}) => {
+
+    const {displayName}=useSelector((state:RootState)=>state.authReducer)
   return (
     // Box es equivalente a Div
     <Box>
@@ -17,7 +21,7 @@ export const SideBar = ({drawerWidth=240}) => {
         >
             <Toolbar>
                 <Typography variant='h6' noWrap component='div'>
-                    J2 Systems
+                    {displayName}
                     </Typography>
             </Toolbar>
             <Divider />
