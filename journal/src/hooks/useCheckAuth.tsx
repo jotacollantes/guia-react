@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FirebaseAuth } from "../firebase/config";
 import { RootState } from "../store";
 import { login, logout } from "../store/auth";
+import { startLoadingNotes } from "../store/journal";
 
 export const useCheckAuth = () => {
   const { status } = useSelector((state: RootState) => state.authReducer);
@@ -24,6 +25,8 @@ export const useCheckAuth = () => {
           errorMessages: null,
         };
         dispatch(login(datosLogin));
+        //! Disparamos el startLoadingNotes que esta en el thunk y que es la funcion que se encargara de traer las notas del usuario
+        dispatch(startLoadingNotes(uid))
       } else {
         return dispatch(logout(""));
       }

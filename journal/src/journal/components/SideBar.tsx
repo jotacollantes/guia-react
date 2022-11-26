@@ -3,11 +3,15 @@ import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIco
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store'
+import { Note } from '../../store/journal'
+import { SideBarItem } from './'
 
 
 export const SideBar = ({drawerWidth=240}) => {
 
     const {displayName}=useSelector((state:RootState)=>state.authReducer)
+    const {notes} =useSelector((state:RootState)=>state.journalReducer)
+    console.log(notes.length)
   return (
     // Box es equivalente a Div
     <Box>
@@ -27,25 +31,9 @@ export const SideBar = ({drawerWidth=240}) => {
             <Divider />
             <List>
                 {
-                    ['Enero','Febrero','Marzo','Abril'].map(
-                    (text:any,index:number)=>
+                    notes.map( (note,index:number)=>
                     {
-                        return ( <ListItem key={index}>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {/* Icono */}
-                                    <TurnedInNot />
-                                    
-                                </ListItemIcon>
-                                <Grid container>
-                                    <ListItemText primary={text}/>
-                                        
-                                    <ListItemText secondary={'Loremd sdfsdfjsdfjshdfhshdf sdf '}/>
-                                </Grid>
-                                
-                            </ListItemButton>
-
-                        </ListItem>)
+                        return <SideBarItem key={index}  id={note.id} title={note.title} body={note.body} date={note.date}/>
                     }
                        
                     )

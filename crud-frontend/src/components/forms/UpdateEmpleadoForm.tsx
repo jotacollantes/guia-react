@@ -23,7 +23,8 @@ export const UpdateEmpleadoForm = (props:Props) => {
   return (
     <Formik
       initialValues={{
-        nombres: "",
+        //nombres: "",
+        nombres:empleado.nombres,
         apellidos: "",
         id: "",
         tcontrato: "Fijo",

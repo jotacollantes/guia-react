@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { authSlice } from './auth/'
+import { journalSlice } from './journal'
 
 export const store = configureStore({
   //!Creamos los espacios (slice) en el store
   reducer: {
     //! authSlice nos devuelve el metodo reducer y la propiedad actions
-    authReducer:authSlice.reducer
+    authReducer:authSlice.reducer,
+    journalReducer:journalSlice.reducer
    
   },
 })

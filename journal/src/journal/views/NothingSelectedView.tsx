@@ -14,6 +14,7 @@ export const NothingSelectedView = () => {
     
     sx={{minHeight: 'calc(100vh - 100px)',backgroundColor:'primary.main',padding:4,
     borderRadius:3}}
+    className="animate__animated animate__fadeIn animate_faster"
     >
         <Grid item xs={12}>
             <StarOutline />

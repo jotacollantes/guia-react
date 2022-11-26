@@ -66,7 +66,7 @@ export const Register = () => {
 
           ({ handleReset }) => (
       
-      <Form>
+      <Form className="animate__animated animate__fadeIn animate_faster">
         <Grid container>
           <Grid item xs={12} sx={{mt:2}}>
           <MyTextInput 

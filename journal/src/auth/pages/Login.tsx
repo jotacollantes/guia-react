@@ -64,7 +64,7 @@ export const Login = () => {
           //* El Componente <Formik/> que es el Higher Order Component expone el objeto formik (que se puede desestructurar {}) que esta como argumento en la funcion children que devuelve un JSX Element
 
           ({ handleReset }) => (
-            <Form>
+            <Form className="animate__animated animate__fadeIn animate_faster">
               <Grid container>
                 <Grid item xs={12} sx={{ mt: 2 }}>
                   <MyTextInput
