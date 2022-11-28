@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { Note, setSelectedNote } from "../../store/journal";
 
 
-export const SideBarItem = ({ id,title, body,date }: Note) => {
+export const SideBarItem = ({ id,title, body,date,imageUrls }: Note) => {
   const newBody = body.length > 17 ? body.substring(0, 17) + "..." : body;
   const newTitle = title.length > 17 ? title.substring(0, 17) + "..." : title;
   const dispatch=useDispatch();
@@ -23,7 +23,8 @@ export const SideBarItem = ({ id,title, body,date }: Note) => {
       id,
       title, 
       body,
-      date
+      date,
+      imageUrls
     }
 
     dispatch(setSelectedNote(selectedNoteObj))

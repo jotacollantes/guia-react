@@ -8,9 +8,12 @@ export interface Note {
     title:string;
     body:string;
     date: number;
-    imageUrls?:[]
+    imageUrls:string[]
+    //imageUrls:string[][]
     
 }
+
+type PhotosUrls = string[]
 
 export interface journalState {
     
@@ -43,7 +46,9 @@ export const journalSlice = createSlice({
 },
 
     setActiveNote:(state, action: PayloadAction<Note> )=>{
+        
         state.activeNote=action.payload
+        state.messageSaved='';
 
     } ,
     setNotes:(state, action: PayloadAction<Note> )=>{
@@ -58,17 +63,68 @@ export const journalSlice = createSlice({
     } ,
 
     setSaving:(state)=>{
-        //state.isSaving=true;
+        state.isSaving=true;
+        state.messageSaved='';
+        //Todo: mensaje de error
     } ,
-    updateNote:(state, action)=>{
+    //!Este es un reducer para actualizar las notas en la barra lateral
+    updateNotesSideBar:(state, action:PayloadAction<Note> )=>{
+        state.isSaving=false;
+        const newArrayNotes=[]
+        const updatedNote:Note= action.payload
+        for (const note of state.notes) {
+              if (note.id===updatedNote.id){
+                //  const objNote={
+                //     id: updatedNote.id,
+                //     title:updatedNote.title,
+                //     body:updatedNote.body,
+                //     date: updatedNote.date
+                // }
+                newArrayNotes.push(updatedNote)
+              }
+              else
+              {
+                newArrayNotes.push(note)
+              }
+              
+        }
+        state.notes=newArrayNotes
+        state.messageSaved=`${action.payload.title}, fue actualizado correctamente`
 
     } ,
-    deleteNote:(state, action)=>{
+    setPhotosToActiveNote:(state, action: PayloadAction<PhotosUrls> )=>{
+        console.log(action.payload)
+        console.log(state.activeNote?.imageUrls?.length)
+        
+        if (state.activeNote?.imageUrls.length ===0) {
+            
+            for (const urlImg of action.payload) {
+                state.activeNote.imageUrls.push(urlImg)
+            }
+            
+        }
+        else
+        {
+           state.activeNote!.imageUrls=[...state.activeNote!.imageUrls,...action.payload]
+        }
+        
+        state.isSaving=false
 
+    } ,
+    clearNotesLogout:(state)=>{
+        state.isSaving= false,
+        state.messageSaved='',
+        state.notes=[],
+        state.activeNote=null
+    },
+
+    deleteNoteById:(state, action: PayloadAction<string>)=>{
+        state.activeNote=null;
+        state.notes= state.notes.filter( (note) => note.id !==action.payload)
     } 
 }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { savingNewNote,addNewEmptyNote,setActiveNote,setNotes,setSaving,updateNote,deleteNote} =  journalSlice.actions;
+export const { savingNewNote,addNewEmptyNote,setActiveNote,setNotes,setSaving,updateNotesSideBar,deleteNoteById,setPhotosToActiveNote,clearNotesLogout} =  journalSlice.actions;

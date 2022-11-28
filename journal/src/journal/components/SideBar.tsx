@@ -11,7 +11,7 @@ export const SideBar = ({drawerWidth=240}) => {
 
     const {displayName}=useSelector((state:RootState)=>state.authReducer)
     const {notes} =useSelector((state:RootState)=>state.journalReducer)
-    console.log(notes.length)
+    //console.log(notes.length)
   return (
     // Box es equivalente a Div
     <Box>
@@ -33,7 +33,7 @@ export const SideBar = ({drawerWidth=240}) => {
                 {
                     notes.map( (note,index:number)=>
                     {
-                        return <SideBarItem key={index}  id={note.id} title={note.title} body={note.body} date={note.date}/>
+                        return <SideBarItem key={index}  id={note.id} title={note.title} body={note.body} date={note.date} imageUrls={note.imageUrls}/>
                     }
                        
                     )
