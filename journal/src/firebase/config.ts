@@ -9,7 +9,8 @@ import {getFirestore} from 'firebase/firestore/lite'
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDbgMuLFqok_YEomur9BDoiOkSUgvpcBZM",
-  authDomain: "react-journal-app-2f599.firebaseapp.com",
+  //authDomain: "react-journal-app-2f599.firebaseapp.com",
+  authDomain: "journal-app-five.vercel.app",
   projectId: "react-journal-app-2f599",
   storageBucket: "react-journal-app-2f599.appspot.com",
   messagingSenderId: "936830330665",
