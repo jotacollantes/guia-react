@@ -27,8 +27,10 @@ export const UpdateEmpleadoForm = (props:Props) => {
         nombres:empleado.nombres,
         //apellidos: "",
         apellidos:empleado.apellidos,
-        id: "",
-        tcontrato: "Fijo",
+        //id: "",
+        id:empleado.id,
+        //tcontrato: "Fijo",
+        tcontrato: empleado.tcontrato
       }}
       onSubmit={async(values) => {
         //console.log(values)
