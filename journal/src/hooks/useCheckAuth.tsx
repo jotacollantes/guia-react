@@ -10,8 +10,10 @@ export const useCheckAuth = () => {
   const { status } = useSelector((state: RootState) => state.authReducer);
   const dispatch = useDispatch();
 
+
+  //! Este useEffect se ejecutara cada vez que se recarga la pagina y va a ejecutar el metodo onAuthStateChanged que verificara si ha cambiado el estado de la autenticacion
   useEffect(() => {
-    //!Funcion de Firebase
+    //!Funcion onAuthStateChanged de Firebase que verifica cuando el estado de la autenticacion cambie.
     onAuthStateChanged(FirebaseAuth, async (user) => {
       //console.log(user)
       if (user) {

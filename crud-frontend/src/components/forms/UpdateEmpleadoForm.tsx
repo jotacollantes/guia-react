@@ -25,7 +25,8 @@ export const UpdateEmpleadoForm = (props:Props) => {
       initialValues={{
         //nombres: "",
         nombres:empleado.nombres,
-        apellidos: "",
+        //apellidos: "",
+        apellidos:empleado.apellidos,
         id: "",
         tcontrato: "Fijo",
       }}
