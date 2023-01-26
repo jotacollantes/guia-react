@@ -5,14 +5,20 @@ import App from "./App";
 import { lightTheme } from "./themes";
 import "./styles/globals.css";
 import { BrowserRouter } from "react-router-dom";
+import { MovieProvider } from "./context/movie";
+import { CartProvider } from "./context/cart";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-     <BrowserRouter>
-    <ThemeProvider theme={lightTheme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-    </BrowserRouter>
+    <CartProvider>
+      <MovieProvider>
+        <BrowserRouter>
+          <ThemeProvider theme={lightTheme}>
+            <CssBaseline />
+            <App />
+          </ThemeProvider>
+        </BrowserRouter>
+      </MovieProvider>
+    </CartProvider>
   </React.StrictMode>
 );
