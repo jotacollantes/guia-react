@@ -10,19 +10,25 @@ export const cartReducer = (
   state: CartState,
   action: CartActionType
 ): CartState => {
+  let countItems
   switch (action.type) {
     case "[Cart] - LoadCart from LocalStorage":
       console.log('entro al reducer: [Cart] - LoadCart from cookies',action.payload)
+      countItems = 0;
+      for (const movie of action.payload) {
+        countItems = countItems + movie.quantity;
+      }
       return {
         ...state,
         //cart: action.payload,
         isLoaded: true,
         cart: [...action.payload],
+        numberOfItems: countItems,
       };
     //break;
     case "[Cart] - Add Movie":
       //console.log('entro al reducer: [Cart] - Add Movie',action.payload)
-      let countItems = 0;
+      countItems = 0;
       for (const movie of action.payload) {
         countItems = countItems + movie.quantity;
       }
