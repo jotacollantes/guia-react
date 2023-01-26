@@ -5,6 +5,7 @@ import { CartContext, cartReducer } from "./";
 export interface CartState {
   isLoaded:boolean;
   cart: ICartMovie[];
+  numberOfItems: number;
   
 
 }
@@ -16,54 +17,39 @@ interface Props {
 //Inicializamos
 const INITIAL_STATE: CartState = {
   isLoaded:false,
-  cart: []
+  cart: [],
+  numberOfItems: 0
 };
 
 
 export const CartProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
   
- //!Para leer las cookies y que el carrito sea persistente
-//   useEffect(() => {
-                        
-//     try {
-//       const cookieCart= Cookie.get('cart') ? JSON.parse(Cookie.get('cart')!):[]
-//        //const cookieCart=  JSON.parse(Cookie.get('cart')!)
-//        dispatch({type: "[Cart] - LoadCart from cookies",payload: cookieCart })
-      
-//        //console.log('leyo la cookie primero',cookieCart)
-//     } catch (error) {
-//       //console.log(error)
-//       dispatch({type: "[Cart] - LoadCart from cookies",payload: [] })
-//       //console.log('No se leyo la cookie',error)
-//     }
-   
-//  }, []);
-
-
-
-
-// //!Para grabar las cookies y que el carrito sea persistente
-// useEffect(() => {
-//   //console.log('entro por aqui',state.cart)
-//    //console.log('grabando cookies', state.cart)
-//    //console.log('state: ',state.cart)
-//  Cookie.set('cart', JSON.stringify(state.cart));
- 
-// }, [state.cart]);
+ //!Para leer del localStorage y que el carrito sea persistente
+useEffect(() => {
+  try {
+    const localCart=JSON.parse(localStorage.getItem('cart') ||'')
+    dispatch({type: "[Cart] - LoadCart from LocalStorage",payload: localCart })
+  } catch (error) {
+    console.log(error)
+    //dispatch({type: "[Cart] - LoadCart from LocalStorage",payload: [] })
+  }
+}, [])
 
 
 
 
 
-  
-//Todo addMovieToCart
+// //!Para grabar en el  LocalStorage y que el carrito sea persistente
+useEffect(() => {
+  localStorage.setItem('cart',JSON.stringify(state.cart))
+}, [state.cart]);
+
 
 const addMovieToCart = (movie: ICartMovie) => {
-    //todo dispatch
-    //console.log(state.cart)
 
-    //! Si no hay productos con el mismo id y misma size se ejecuta el dispatch [...state.cart,product]
+
+ 
     const moviesInCart = state.cart.some(
       (movieItem) =>
         movieItem.title == movie.title
@@ -76,7 +62,7 @@ const addMovieToCart = (movie: ICartMovie) => {
       });
     }
 
-    //! Si se llega en este punto es porque si hay productos con el mismo id y con la misma talla. Aqui se muta el estado en un nuevo arreglo con la cantidad de items actualizado
+
 
     const updateMoviesInCart = state.cart.map((movieItem) => {
       if (

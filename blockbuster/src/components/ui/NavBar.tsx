@@ -9,16 +9,17 @@ import {
   Box,
   Button,
   IconButton,
-  Link,
   Toolbar,
   Typography,
 } from "@mui/material";
 
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logoBlockBuster.png";
+import { CartContext } from "../../context/cart";
 
 export const NavBar = () => {
+  const {numberOfItems} = useContext(CartContext)
   return (
     <AppBar>
       <Toolbar>
@@ -61,7 +62,7 @@ export const NavBar = () => {
         <NavLink to="/cart">
           {/* <Link> */}
           <IconButton>
-            <Badge badgeContent={2}>
+            <Badge badgeContent={numberOfItems}>
               <ShoppingCartOutlined />
             </Badge>
           </IconButton>
