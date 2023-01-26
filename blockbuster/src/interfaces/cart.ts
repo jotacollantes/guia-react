@@ -2,5 +2,8 @@ export interface ICartMovie {
   title: string;
   imdbid: string;
   quantity: number;
-  image:string
+  image:string,
+  modalidad:string ,
+  fechaEntrega?:string
 }
+//export type ITypeModalidad = 'venta'|'alquiler'

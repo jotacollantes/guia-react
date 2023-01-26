@@ -8,14 +8,25 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useContext, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { CardList, OrderSumary } from "../components/cart";
 
-// import { OrderSumary } from "../../components/cart";
+
 
 import { BlockBusterLayout } from "../components/layouts";
+import { CartContext } from "../context/cart";
 
 export const Cart = () => {
+
+  const { cart} = useContext(CartContext);
+  const  navigate = useNavigate();
+
+  useEffect(() => {
+    if ( cart.length === 0 ){
+      navigate("/emptycart")
+    }
+  }, [])
+
   return (
     <BlockBusterLayout>
       <Typography variant="h1" component={"h1"}>

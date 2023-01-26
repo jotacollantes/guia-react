@@ -41,14 +41,14 @@ export const NavBar = () => {
         {/* Para que tome todo el espacio restante entre BOX */}
         <Box flex={1} />
 
-        <NavLink to="/cart">
-          <IconButton>
-            <Badge badgeContent={numberOfItems}>
-              <ShoppingCartOutlined />
-            </Badge>
-          </IconButton>
-        </NavLink>
-      </Toolbar>
+       <NavLink to="/cart">
+        <IconButton>
+          <Badge badgeContent={numberOfItems}>
+            <ShoppingCartOutlined />
+          </Badge>
+        </IconButton>
+      </NavLink>
+ </Toolbar>
     </AppBar>
   );
 };

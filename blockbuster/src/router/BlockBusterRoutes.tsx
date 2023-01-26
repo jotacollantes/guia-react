@@ -1,8 +1,8 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Cart, Home} from '../pages'
-import { Movie } from '../pages'
-import { Confirmation } from '../pages/Confirmation'
+import { Cart, Home,Confirmation, Movie,EmptyCart} from '../pages'
+
+
 
 export const BlockBusterRoutes = () => {
   return (
@@ -13,6 +13,9 @@ export const BlockBusterRoutes = () => {
     <Route path="/movie" element={<Movie/>}/>
     <Route path="/cart" element={<Cart/>}/>
     <Route path="/confirmation" element={<Confirmation/>}/>
+    <Route path="/emptycart" element={<EmptyCart/>}/>
+
+    
     <Route path="/*"  element={<Navigate to="/"/>}/> 
     
 
