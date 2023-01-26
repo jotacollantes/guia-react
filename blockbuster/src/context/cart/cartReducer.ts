@@ -4,16 +4,16 @@ import { CartState } from "./";
 type CartActionType =
   | { type: "[Cart] - LoadCart from LocalStorage"; payload: ICartMovie[] }
   | { type: "[Cart] - Add Movie"; payload: ICartMovie[] }
-  | { type: "[Cart] - Order Complete" };
+  | { type: "[Cart] - Order Completed" };
 
 export const cartReducer = (
   state: CartState,
   action: CartActionType
 ): CartState => {
-  let countItems
+  let countItems;
   switch (action.type) {
     case "[Cart] - LoadCart from LocalStorage":
-      console.log('entro al reducer: [Cart] - LoadCart from cookies',action.payload)
+  
       countItems = 0;
       for (const movie of action.payload) {
         countItems = countItems + movie.quantity;
@@ -27,7 +27,7 @@ export const cartReducer = (
       };
     //break;
     case "[Cart] - Add Movie":
-      //console.log('entro al reducer: [Cart] - Add Movie',action.payload)
+     
       countItems = 0;
       for (const movie of action.payload) {
         countItems = countItems + movie.quantity;
@@ -40,10 +40,12 @@ export const cartReducer = (
         numberOfItems: countItems,
       };
 
-    case "[Cart] - Order Complete":
+    case "[Cart] - Order Completed":
       return {
         ...state,
+        isLoaded: false,
         cart: [],
+        numberOfItems: 0,
       };
 
     default:

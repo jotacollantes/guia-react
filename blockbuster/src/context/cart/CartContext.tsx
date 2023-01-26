@@ -9,7 +9,8 @@ interface ContextProps {
 
   
   //!Methods
-  addMovieToCart: (movie: ICartMovie) => void
+  addMovieToCart: (movie: ICartMovie) => void,
+  closeOrder: () => void
   
   //createOrder: () => Promise<{hasError:boolean;message:string;}>
 }

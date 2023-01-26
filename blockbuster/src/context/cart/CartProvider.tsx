@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { ICartMovie, IMovie } from "../../interfaces";
+import { ICartMovie } from "../../interfaces";
 import { CartContext, cartReducer } from "./";
 
 export interface CartState {
@@ -31,8 +31,8 @@ useEffect(() => {
     const localCart=JSON.parse(localStorage.getItem('cart') ||'')
     dispatch({type: "[Cart] - LoadCart from LocalStorage",payload: localCart })
   } catch (error) {
-    console.log(error)
-    //dispatch({type: "[Cart] - LoadCart from LocalStorage",payload: [] })
+    //console.log(error)
+    dispatch({type: "[Cart] - LoadCart from LocalStorage",payload: [] })
   }
 }, [])
 
@@ -78,11 +78,18 @@ const addMovieToCart = (movie: ICartMovie) => {
     dispatch({ type: "[Cart] - Add Movie", payload: updateMoviesInCart });
   };
 
+  const closeOrder = ()=>{
+    //localStorage.removeItem("cart");
+    localStorage.clear();
+    dispatch({ type: "[Cart] - Order Completed"});
+  }
+
   return (
     <CartContext.Provider
       value={{
         ...state,
-        addMovieToCart
+        addMovieToCart,
+        closeOrder
        
         
         

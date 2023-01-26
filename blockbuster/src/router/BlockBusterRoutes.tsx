@@ -2,6 +2,7 @@ import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Cart, Home} from '../pages'
 import { Movie } from '../pages'
+import { Confirmation } from '../pages/Confirmation'
 
 export const BlockBusterRoutes = () => {
   return (
@@ -11,7 +12,8 @@ export const BlockBusterRoutes = () => {
     <Route path="/" element={<Home/>}/>
     <Route path="/movie" element={<Movie/>}/>
     <Route path="/cart" element={<Cart/>}/>
-    {/* <Route path="/*"  element={<Navigate to="/"/>}/> */}
+    <Route path="/confirmation" element={<Confirmation/>}/>
+    <Route path="/*"  element={<Navigate to="/"/>}/> 
     
 
 </Routes>

@@ -41,6 +41,7 @@ if(movie.Title==="")
     title: movie.Title,
     imdbid: movie.imdbID,
     quantity: 1,
+    image: movie.Poster
   });
 
 
