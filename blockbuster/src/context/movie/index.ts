@@ -1,3 +1,3 @@
-export * from './movieContext'
+export * from './MovieContext'
 export * from './MovieProvider'
 export * from './movieReducer'
