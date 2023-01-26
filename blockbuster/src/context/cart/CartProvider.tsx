@@ -52,9 +52,9 @@ const addMovieToCart = (movie: ICartMovie) => {
  
     const moviesInCart = state.cart.some(
       (movieItem) =>
-        movieItem.title == movie.title
+        movieItem.title === movie.title && movie.modalidad ==='venta'
     );
-    //console.log(productsInCart)
+    
     if (!moviesInCart) {
       return dispatch({
         type: "[Cart] - Add Movie",
@@ -66,7 +66,7 @@ const addMovieToCart = (movie: ICartMovie) => {
 
     const updateMoviesInCart = state.cart.map((movieItem) => {
       if (
-        movieItem.title === movie.title
+        movieItem.title === movie.title && movie.modalidad ==='venta'
       ) {
         movieItem.quantity = movieItem.quantity + movie.quantity;
         return movieItem;

@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const MovieCard = ({ movie }: Props) => {
-  //! Este state isImageLoaded nos va a ayudar a que primero se carguen las imagenes y luego el Box que contiene los Typography
+
 
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const { setMovie } = useContext(MovieContext);
@@ -32,13 +32,12 @@ export const MovieCard = ({ movie }: Props) => {
     //!Si es xs solo se mostrara 2 productos si es de sm en adelante solo se mostrara 3 productos
     <Grid item xs={6} sm={4}>
       <Card>
-        {/* <NextLink href={`/product/${product.slug}`} passHref legacyBehavior prefetch={false}>
-          <Link> */}
+       
 
         <CardActionArea>
           <CardMedia
             component={"img"}
-            //image={`products/${product.images[0]}`}
+            
             image={`${movie.Poster}`}
             alt={movie.Title}
             className="fadein"
@@ -46,11 +45,9 @@ export const MovieCard = ({ movie }: Props) => {
             onClick={() => viewMovie(movie)}
           />
         </CardActionArea>
-        {/* </Link>
-        </NextLink> */}
+       
       </Card>
-      {/* Los estilos los toma de /styles/global.css */}
-      {/* El state isImageLoaded nos va a ayudar a que primero se carguen las imagenes y luego el Box que contiene los Typography */}
+     
       <Box
         sx={{ margintop: 1, display: isImageLoaded ? "block" : "none" }}
         className="fadeIn"

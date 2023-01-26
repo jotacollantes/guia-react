@@ -5,6 +5,7 @@ import { blockbusterApi } from "../api";
 import { BlockBusterLayout } from "../components/layouts/BlockBusterLayout";
 import { MovieList } from "../components/movies";
 import { FullScreenLoading } from "../components/ui";
+import { alert } from "../helpers";
 import { IMovie, OMDBType } from "../interfaces";
 
 export const Home = () => {
@@ -30,6 +31,7 @@ export const Home = () => {
     } catch (error) {
       console.log(error);
       setIsLoading(false);
+      alert();
       return null;
     }
   };

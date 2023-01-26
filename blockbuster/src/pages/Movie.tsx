@@ -74,7 +74,7 @@ const onUpdateFechaEntrega=(value:string)=>{
     navigate("/cart");
   };
 
-  console.log(tempCartMovie)
+  //console.log(tempCartMovie)
   return (
     <BlockBusterLayout>
       <Grid container sx={{ mt: 10 }} spacing={3}>
