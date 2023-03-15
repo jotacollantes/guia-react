@@ -1,6 +1,6 @@
 import {request,response} from 'express'
 import {Follow,User} from '../models/index.js'
-//import mongoosePagination from 'mongoose-pagination'
+import mongoosePagination from 'mongoose-pagination'
 import {followUserIds,followThisUser} from '../helpers/followServices.js'
 export const followCtrl={}
 
@@ -119,7 +119,9 @@ try {
     }
     //Obtenemos el total de usariosseguidos
     const totalFollowing = await Follow.count({'user':userId})
-    //listado de seguidores de un usuario que no es el autenticado
+
+
+    
 
     //Sacar un array de los ids de los usuarios que me siguen y los que sigo como usuario conectado
 

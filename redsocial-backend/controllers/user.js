@@ -304,7 +304,6 @@ userCtrl.Upload = async (req = request, res = response) => {
             message: "Error al actualizar la imagen del usuario",
         })
     }
-
 }
 
 userCtrl.Avatar = (req = request, res = response) => {

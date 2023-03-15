@@ -5,7 +5,8 @@ const PublicationSchema = Schema(
         user: {
             //!Hacemos la referencia a la entidad User
             type: Schema.ObjectId,
-            ref: "User"
+            ref: "User",
+            required:true
         },
         text: {
             type: String,
