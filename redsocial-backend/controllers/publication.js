@@ -1,6 +1,9 @@
 import { request, response } from 'express'
+import fs from 'fs'
+import path from 'path'
 import mongoosePagination from 'mongoose-pagination'
 import { Publication } from '../models/publication.js'
+import {followUserIds} from '../helpers/followServices.js'
 
 export const publicationCtrl = {}
 
@@ -43,7 +46,8 @@ publicationCtrl.Save = async (req = request, res = response) => {
     } catch (error) {
         return res.status(500).json({
             status: "error",
-            message: "Error al grabar publicacion"
+            message: "Error al grabar publicacion",
+            
         })
     }
 
@@ -129,8 +133,8 @@ publicationCtrl.AdvertiseUser = async(req = request, res = response) => {
     //Find,populate,ordernar y paginar
     const publicationsByUser=await Publication.find({user:userId})
     //Ordernar de forma descendente
-    .sort({created_at:-1})
-    .populate('user','-password -__v -role')
+    .sort({created_at:'desc'})
+    .populate('user','-password -__v -role -email')
     .paginate(page,itemsPerPage)
     
 
@@ -220,8 +224,80 @@ publicationCtrl.Upload = async (req = request, res = response) => {
     }
 }
 
-
-//Listar todas las publicaciones(feed)
-
-
 //Devolver archivos multimedia/imagenes
+publicationCtrl.Media = (req = request, res = response) => {
+    //Sacar el parametro de la url
+    const file = req.params.file
+
+    //Montar el path real
+    const filePath = `./uploads/publications/${file}`
+
+    //Comprobar el archivo existe
+
+    fs.stat(filePath, (error, stats) => {
+
+
+        if (!stats) {
+            return res.status(404).json({
+                status: "error",
+                message: "Archivo no existe",
+            })
+        }
+    })
+
+    
+    // return res.status(200).json({
+    //     message: "enviado desde el controlador avatar",
+    //     user: req.user
+    // })
+
+    //Devolver el file
+    // Con path.resolve(filePath) obtengo la ruta absoluta para poder localizar el archivo /Users/jota/Sites/master-react/redsocial-backend/uploads/avatars/avatar-1678682273685-nest-js.png
+    
+    return res.sendFile(path.resolve(filePath))
+}
+//Listar todas las publicaciones(feed)
+publicationCtrl.Feed = async(req = request, res = response) => {
+
+    try {
+        //Sacar la pagina actual
+      let page=1
+      if(req.params.page) page=req.params.page
+
+      //Establecer numero de elementos por pagina
+      const itemsPerPage=5
+
+      // Sacar un array de identificadores de usuarios que yo estoy siguiendo como usuario logeado.
+
+      const myFollows=await followUserIds(req.user.id)
+
+      //FInd a publicaciones operador in, ordenar,popular,paginar 
+
+      //*COn este find busco las publicaciones de los usarios que sigo y que estan en el arreglo myFollows.following
+    const publications=await Publication.find({user:{$in:myFollows.following}})
+    .populate('user','-password -email -__v -role')
+    .sort({created_at:'desc'})
+    .paginate(page,itemsPerPage)
+     //*esta manera tambien sirve: await Publication.find({user:myFollows.following})
+     //console.log(publications)
+
+     const totalPublications=await Publication.find({user:{$in:myFollows.following}}).count()
+    return res.status(200).json({
+        status:'success',
+        message: "enviado desde el controlador Feed",
+        page,
+        totalPublications,
+        pages:Math.ceil(totalPublications/itemsPerPage),
+        following:myFollows.following,
+        publications
+    })
+    } catch (error) {
+        //console.log(error)
+        return res.status(500).json({
+            status:'error',
+            message: "Error al cargar el Feed",
+            
+        })
+    }
+      
+}

@@ -102,9 +102,9 @@ try {
 
     //Find a modelo Follow, popular los datos de los usuarios que se esta siguiendo y paginar con mongoose paginate.
 
-    const listaFollowing=await Follow.find({'user':userId})
+    const listaFollowing=await Follow.find({user:userId})
     //Hacemos el populate de los campos user y followed
-    .populate('user followed','-password -role -__v')
+    .populate('user followed','-password -role -__v -email')
     .paginate(page,itemsPerPage)
 
     if (!listaFollowing || listaFollowing.length === 0) {
@@ -171,7 +171,7 @@ followCtrl.Followers =async(req=request,res=response)=>{
     
         const listaFollowers=await Follow.find({'followed':userId})
         //Hacemos el populate de los campos user y followed
-        .populate('user','-password -role -__v')
+        .populate('user','-password -role -__v -email')
         .paginate(page,itemsPerPage)
     
         if (!listaFollowers || listaFollowers.length === 0) {

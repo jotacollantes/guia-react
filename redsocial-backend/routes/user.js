@@ -27,4 +27,6 @@ router.put('/update',verifyToken,userCtrl.Update)
 //Cuando son varios middlewares tienen que ir dentro de un array
 router.post('/upload',[verifyToken,upload.single('file0')],userCtrl.Upload)
 
-router.get('/avatar/:file',verifyToken,userCtrl.Avatar)
+//router.get('/avatar/:file',verifyToken,userCtrl.Avatar)
+router.get('/avatar/:file',userCtrl.Avatar)
+router.get('/counter/:id',verifyToken,userCtrl.Counter)

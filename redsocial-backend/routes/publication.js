@@ -24,3 +24,6 @@ router.delete('/delete/:id',verifyToken,publicationCtrl.Delete)
 router.get('/advertiseuser/:id/:page?',verifyToken,publicationCtrl.AdvertiseUser)
 //El id de la publicacion es obligatoria
 router.post('/upload/:id',[verifyToken,upload.single('file0')],publicationCtrl.Upload)
+//router.get('/media/:file',verifyToken,publicationCtrl.Media)
+router.get('/media/:file',publicationCtrl.Media)
+router.get('/feed/:page?',verifyToken,publicationCtrl.Feed)

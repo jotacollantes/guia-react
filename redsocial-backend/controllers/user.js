@@ -1,5 +1,5 @@
 import { request, response } from 'express'
-import { User } from '../models/user.js'
+import { User,Follow, Publication } from '../models/index.js'
 import bcrypt from 'bcrypt'
 import { createJwt } from '../helpers/jwt.js'
 import mongoosePagination from 'mongoose-pagination'
@@ -158,6 +158,7 @@ userCtrl.List = async (req = request, res = response) => {
     const itemsPerPage = 5
     //Devuelve un array
     const listUsers = await User.find()
+        .select('-email -__v -role -password')
         .sort('_id')
         .paginate(page, itemsPerPage)
 
@@ -239,6 +240,9 @@ userCtrl.Update = async (req = request, res = response) => {
         // Cifrar contraseña en caso de que la envie para cambiarla.
         if (userToUpdate.password) {
             userToUpdate.password = await utils.Hash(userToUpdate.password)
+        } else{
+            //Borramos el password del objeto para no sobreescribir la clave
+            delete userToUpdate.password
         }
 
         // Buscar y actualizar
@@ -336,4 +340,35 @@ userCtrl.Avatar = (req = request, res = response) => {
     // Con path.resolve(filePath) obtengo la ruta absoluta para poder localizar el archivo /Users/jota/Sites/master-react/redsocial-backend/uploads/avatars/avatar-1678682273685-nest-js.png
     
     return res.sendFile(path.resolve(filePath))
+}
+
+userCtrl.Counter=async(req = request, res = response)=>{
+
+    try {
+    let userId=req.user.id;
+    //Obtenemos el id del params en caso de que lo envie
+    if(req.params.id){
+        userId=req.params.id
+    }
+    //Usuarios que sigo
+    const following=await Follow.count({user:userId})
+    //Usuarios que me siguen
+    const followed=await Follow.count({followed:userId})
+    //Mis publicaciones.
+    const publication=await Publication.count({user:userId})
+    return res.status(404).json({
+        status: "succes",
+        userId,
+        following,
+        followed,
+        publication
+    })
+
+    } catch (error) {
+        return res.status(404).json({
+            status: "error",
+            message: "Error al obtenerlos contadores"
+        })
+    }
+    
 }
