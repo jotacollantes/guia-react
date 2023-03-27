@@ -57,7 +57,7 @@ followCtrl.Unfollow =async(req=request,res=response)=>{
 
     
     const followDeleted=await Follow.findOneAndDelete({'user':currentId,'followed':unfollowdId})
-    //console.log(followDeleted)
+    console.log(followDeleted)
     if(!followDeleted){
         return res.status(401).json({
             status:"error",

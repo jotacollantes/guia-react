@@ -237,7 +237,7 @@ userCtrl.Update = async (req = request, res = response) => {
 
             }
         }
-        // Cifrar contraseña en caso de que la envie para cambiarla.
+        // Cifrar contraseña en caso de que la envie para cambiarla (o sea la escribio).
         if (userToUpdate.password) {
             userToUpdate.password = await utils.Hash(userToUpdate.password)
         } else{
@@ -356,7 +356,7 @@ userCtrl.Counter=async(req = request, res = response)=>{
     const followed=await Follow.count({followed:userId})
     //Mis publicaciones.
     const publication=await Publication.count({user:userId})
-    return res.status(404).json({
+    return res.status(201).json({
         status: "succes",
         userId,
         following,

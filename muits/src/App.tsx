@@ -1,6 +1,6 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container,Typography } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
-import { Product } from "./muiComponents";
+import { GridMui, Product } from "./muiComponents";
 import { CardMui } from "./muiComponents";
 import { NavBar } from "./muiComponents/navbar";
 import { Home } from "./pages/Home";
@@ -36,7 +36,8 @@ function App() {
       <NavBar links={listNavUrl} />
       <Container sx={{ mt: 10 }}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<GridMui />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
