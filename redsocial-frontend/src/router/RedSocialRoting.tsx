@@ -1,11 +1,12 @@
 
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
+import { Followers, Following } from '../components/follow'
 import { PrivateLayout } from '../components/layout/private/PrivateLayout'
 import { PublicLayout } from '../components/layout/public/PublicLayout'
 import { Feed } from '../components/publication/Feed'
-import { Settings, People } from '../components/user'
-import { Login } from '../components/user/Login'
+import { Settings, People,Login,Profile } from '../components/user'
+
 
 
 import { Register } from '../components/user/Register'
@@ -29,6 +30,9 @@ export const RedSocialRoting = () => {
       <Route path="feed"  element={<Feed/>} />
       <Route path="people"  element={<People/>} />
       <Route path="settings"  element={<Settings/>} />
+      <Route path="siguiendo/:userId"  element={<Following/>} />
+      <Route path="seguidores/:userId"  element={<Followers/>} />
+      <Route path="perfil/:userId"  element={<Profile/>} />
     </Route>
     
     

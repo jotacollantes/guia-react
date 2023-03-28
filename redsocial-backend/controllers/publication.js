@@ -34,6 +34,7 @@ publicationCtrl.Save = async (req = request, res = response) => {
         //Crear y llenar el objeto del modelo
         const newPublication = new Publication(data)
         //*Añadimos el id del usuario conectado a la propìedad user del modelo Publication instanciado en newPublication
+        console.log('Save publication :',newPublication.text)
         newPublication.user = req.user.id
         //Guardar objeto en la BD
         await newPublication.save()

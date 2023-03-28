@@ -230,6 +230,7 @@ export const AuthProvider = ({ children }: Props) => {
     //console.log(data)
     setListFollowing([...listFollowing,userId])
     //Para actualizar el state de counters
+    //console.log(auth.id,auth.token)
     await getCounters(auth.id,auth.token)
    
     } catch (error) {

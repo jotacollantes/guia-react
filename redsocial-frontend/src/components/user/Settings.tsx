@@ -54,7 +54,7 @@ export const Settings = () => {
 
     try {
       const { data } = await redSocialApi.put(
-        `/user/update`,
+        `user/update`,
         JSON.stringify({ name, email, surname, nick, password, bio }),
         {
           headers: {
@@ -75,7 +75,7 @@ export const Settings = () => {
           const formData = new FormData();
           //file0 es el nombre que espera el backend en el body
           formData.append("file0", fileInput.files[0]);
-          const { data } = await redSocialApi.post(`/user/upload`, formData, {
+          const { data } = await redSocialApi.post(`user/upload`, formData, {
             headers: {
               Authorization: auth.token,
             },

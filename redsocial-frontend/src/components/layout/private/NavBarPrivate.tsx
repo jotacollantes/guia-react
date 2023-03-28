@@ -79,8 +79,8 @@ export const NavBarPrivate = () => {
 
         <Box flex={1} />
         {/* <Box sx={{ display: { xs: "none", sm: "block" } }}> */}
-
-        <Box
+        <NavLink to={`/social/perfil/${profile.id}`}>
+          <Box
           component="img"
           sx={{ height: 54, display: { xs: "none", sm: "block" } }}
           alt="Logo"
@@ -91,10 +91,16 @@ export const NavBarPrivate = () => {
           }
             
         />
+        </NavLink>
+        
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <NavLink to={`/social/perfil/${profile.id}`}>
           <Button color="inherit" variant="text">
             <Typography variant="h3">{profile.nick} </Typography>
           </Button>
+          </NavLink>
+          
+
           <IconButton>
             <SettingsOutlined />
           </IconButton>
