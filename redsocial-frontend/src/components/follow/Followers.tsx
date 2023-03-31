@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { redSocialApi } from "../../api/redSocialApi";
 import { useAuth } from "../../hooks/useAuth";
 import { PeopleItem, User } from "../user/PeopleItem";
-import { getProfileUser } from "../../helpers/getProfileUser";
+import { useGetProfileUser } from "../../hooks/useGetProfileUser";
 
 export const Followers = () => {
   const { auth,listFollowing, setListFollowing } = useAuth();
@@ -12,10 +12,10 @@ export const Followers = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [userProfile,setUserProfile]=useState<any>({})
-  //const [listFollowing, setListFollowing] = useState<string[]>([]);
-  const params= useParams()
 
+
+  const params= useParams()
+  const {data} = useGetProfileUser(params.userId!,auth.token)
   const getUsers = async (nextPage: number) => {
     let newUsers;
     //console.log({nextPage})
@@ -53,14 +53,11 @@ export const Followers = () => {
       }
     }, 2000);
   };
-  const getUserProfile=async(userId:string,token:string)=>{
-    const profileUser=await getProfileUser(userId,token)
-    setUserProfile(profileUser)
-}
+
   useEffect(() => {
     //console.log("entro");
     getUsers(page);
-    getUserProfile(params.userId!,auth.token)
+   
   }, []);
 
   const nextPage = () => {
@@ -77,7 +74,7 @@ export const Followers = () => {
   
   return (
     <>
-    <Typography variant="h1" component={'h1'}>{`Usuarios que sigue a ${userProfile.name} ${userProfile.surname}`} </Typography>
+    <Typography variant="h1" component={'h1'}>{`Usuarios que sigue a ${data.name} ${data.surname}`} </Typography>
       {loading ? "Cargando..." : ""}
 
       {users.map((user: User, ix) => {

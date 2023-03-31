@@ -7,6 +7,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import avatar from "../../assets/img/user.png";
 import { useAuth } from "../../hooks";
@@ -69,7 +70,10 @@ export const PeopleItem = ({ user, following }: Props) => {
         <Card variant="outlined">
           <CardActions>
             <Typography variant="h6" component="div">
-              {`${user.name} ${user.surname}`} | {`${user.create_at}`}
+              <Link to={`/social/perfil/${user._id}`}>
+              {`${user.name} ${user.surname}`}
+              </Link>
+              | {`${user.create_at}`}
             </Typography>
           </CardActions>
           <CardContent>

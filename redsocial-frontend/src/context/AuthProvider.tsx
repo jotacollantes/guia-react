@@ -58,7 +58,9 @@ listFollowing:string[];
 setListFollowing: (value: React.SetStateAction<string[]>) => void;
 followUser: (userId: string) => Promise<void>;
 unFollowUser: (userId: string) => Promise<void>;
-getCounters: (id: string, token: string) => Promise<void>
+getCounters: (id: string, token: string) => Promise<void>;
+visitedProfile:boolean;
+setVisitedProfile: React.Dispatch<React.SetStateAction<boolean>>
 
 }
 
@@ -92,6 +94,7 @@ export const AuthProvider = ({ children }: Props) => {
   const [counter, setCounter] = useState(initialStateCounter);
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState(initialStateProfile);
+  const [visitedProfile, setVisitedProfile] = useState(true);
   const [listFollowing, setListFollowing] = useState<string[]>([]);
   const navigate = useNavigate();
   
@@ -258,7 +261,7 @@ export const AuthProvider = ({ children }: Props) => {
     
     setListFollowing(newListFollowing)
     await getCounters(auth.id,auth.token)
-    console.log(listFollowing)
+    //console.log(listFollowing)
     } catch (error) {
       console.log(error)
     }
@@ -271,7 +274,7 @@ export const AuthProvider = ({ children }: Props) => {
     //- el state loading y su metodo setLoading
 
     <AuthContext.Provider
-      value={{ auth, counter, loading, setLoading, setAuth, profile,loginUser,logoutUser,setProfile,listFollowing,setListFollowing,followUser,unFollowUser,getCounters}}
+      value={{ auth, counter, loading, setLoading, setAuth, profile,loginUser,logoutUser,setProfile,listFollowing,setListFollowing,followUser,unFollowUser,getCounters,visitedProfile, setVisitedProfile}}
     >
       {children}
     </AuthContext.Provider>

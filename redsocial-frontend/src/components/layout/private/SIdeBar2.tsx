@@ -175,27 +175,27 @@ export const SideBar2 = () => {
           >
             <Grid item>
               <Link to={`siguiendo/${auth.id}`}>
-                <Typography variant={"subtitle1"}>Siguiendo</Typography>
+                <Typography variant={"subtitle1"}>Siguiendo</Typography></Link>
                 <Typography variant={"h3"} textAlign={"center"}>
                   {counter.following}
                 </Typography>
-              </Link>
+              
             </Grid>
             <Grid item>
               <Link to={`seguidores/${auth.id}`}>
-                <Typography variant={"subtitle1"}>Seguidores</Typography>
+                <Typography variant={"subtitle1"}>Seguidores</Typography></Link>
                 <Typography variant={"h3"} textAlign={"center"}>
                   {counter.followed}
                 </Typography>
-              </Link>
+              
             </Grid>
             <Grid item>
               <Link to={`/social/perfil/${profile.id}`}>
-                <Typography variant={"subtitle1"}>Publicaciones</Typography>
+                <Typography variant={"subtitle1"}>Publicaciones</Typography></Link>
                 <Typography variant={"h3"} textAlign={"center"}>
                   {counter.publication}
                 </Typography>
-              </Link>
+              
             </Grid>
           </Grid>
         </Grid>

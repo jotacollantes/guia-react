@@ -2,10 +2,9 @@ import { Button, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { redSocialApi } from "../../api/redSocialApi";
-import { getProfileUser } from "../../helpers/getProfileUser";
 import { useAuth } from "../../hooks/useAuth";
-
 import { PeopleItem, User } from "../user/PeopleItem";
+import { useGetProfileUser } from '../../hooks/useGetProfileUser';
 
 export const Following =() => {
   const { auth,listFollowing, setListFollowing } = useAuth();
@@ -13,11 +12,9 @@ export const Following =() => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [userProfile,setUserProfile]=useState<any>({})
-  //const [listFollowing, setListFollowing] = useState<string[]>([]);
   const params= useParams()
-
-
+  const {data} = useGetProfileUser(params.userId!,auth.token)
+  
 
   const getUsers = async (nextPage: number) => {
     let newUsers;
@@ -51,23 +48,22 @@ export const Following =() => {
         setTotalPages(data.pages);
         setListFollowing(data.following);
         setLoading(false);
+
+        //console.log(users)
       } catch (error) {
         console.log(error);
       }
     }, 2000);
   };
 
-  const getUserProfile=async(userId:string,token:string)=>{
-        const profileUser=await getProfileUser(userId,token)
-        setUserProfile(profileUser)
-  }
+
   
   
   useEffect(() => {
-    //console.log("entro");
+    
     
     getUsers(page);
-    getUserProfile(params.userId!,auth.token)
+    
   }, []);
 
   const nextPage = () => {
@@ -86,11 +82,13 @@ export const Following =() => {
   
   return (
     <>
-    <Typography variant="h1" component={'h1'}>{`Usuarios que sigue el usuario ${userProfile.name} ${userProfile.surname}`} </Typography>
+    <Typography variant="h1" component={'h1'}>{`Usuarios que sigue el usuario ${data.name } ${data.surname}`} </Typography>
       {loading ? "Cargando..." : ""}
-
+  
       {users.map((user: User, ix) => {
         let following = false;
+
+        
         if (listFollowing.includes(user._id)) {
           following = true;
         }

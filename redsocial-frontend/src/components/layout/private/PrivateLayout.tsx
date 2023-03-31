@@ -3,7 +3,7 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import { NavBarPrivate } from './NavBarPrivate';
 import { Outlet, Navigate } from 'react-router-dom';
 import SideBar from './SideBar';
-import { SideBar2 } from './SIdeBar2';
+import { SideBar2 } from './SideBar2';
 import { useAuth } from '../../../hooks/useAuth';
 
 

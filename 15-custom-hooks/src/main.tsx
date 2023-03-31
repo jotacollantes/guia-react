@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import { MiFormularioOnChange } from './components/MiformularioOnChange'
+//import { MiFormularioOnChange } from './components/MiformularioOnChange'
 import { MiFormularioOnSubmit } from './components/MiFormularioOnSubmit'
 import { MiUsuario } from './components/MiUsuario'
 
