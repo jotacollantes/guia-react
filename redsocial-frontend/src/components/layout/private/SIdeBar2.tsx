@@ -15,6 +15,7 @@ import FaceIcon from "@mui/icons-material/Face";
 import { useForm } from "react-hook-form";
 import { ErrorOutline } from "@mui/icons-material";
 import { redSocialApi } from "../../../api";
+import { usePublication } from "../../../hooks/usePublication";
 
 type FormData = {
   text: string;
@@ -33,6 +34,7 @@ export const SideBar2 = () => {
   const [isSaved, setIsSaved] = useState(false);
 
   const { profile, counter, auth, getCounters } = useAuth();
+  const {pages,total,publicationsByUser, getPublication,deletePublication } = usePublication();
 
   const onSavePublication = async ({ text }: FormData) => {
     //setShowError(false);
@@ -90,6 +92,9 @@ export const SideBar2 = () => {
         setTimeout(() => {
           setIsSaved(false);
         }, 3000);
+
+        //TODO Refresh publications profile
+        getPublication(auth.id,1,"onRefresh")
       }
     } catch (error: any) {
       console.log(error.response.data.message);

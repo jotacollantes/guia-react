@@ -286,7 +286,7 @@ publicationCtrl.Feed = async(req = request, res = response) => {
     return res.status(200).json({
         status:'success',
         message: "enviado desde el controlador Feed",
-        page,
+        page: parseInt(page),
         totalPublications,
         pages:Math.ceil(totalPublications/itemsPerPage),
         following:myFollows.following,
