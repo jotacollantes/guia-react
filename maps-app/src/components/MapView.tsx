@@ -19,7 +19,8 @@ export const MapView = () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       container: mapDiv.current!, // container ID
       //container: "mydiv", // container ID
-      style: 'mapbox://styles/mapbox/streets-v12', // style URL
+      //style: 'mapbox://styles/mapbox/streets-v12', // style URL
+      style: 'mapbox://styles/mapbox/dark-v10', // style URL
       center: userLocation, // starting position [lng, lat]
       zoom: 14, // starting zoom
       });
