@@ -1,5 +1,5 @@
 
-import { BtnMyLocation, LogoVite, MapView } from '../components'
+import { BtnMyLocation, LogoVite, MapView, SearchBar } from '../components'
 
 export const HomeScreen = () => {
   return (
@@ -7,6 +7,7 @@ export const HomeScreen = () => {
         <MapView/>
         <BtnMyLocation/>
         <LogoVite/>
+        <SearchBar/>
     </div>
     
   )

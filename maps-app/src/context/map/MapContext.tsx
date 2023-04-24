@@ -1,11 +1,13 @@
 import { createContext } from "react";
-import { Map } from "mapbox-gl";
+import { Map, Marker } from "mapbox-gl";
 
 interface MapContextProps{
     isMapReady:boolean,
     map?: Map,
+    markers:Marker[],
     //Methods
-    setMap: (map: Map) => void
+    setMap: (map: Map) => void,
+    getRouteBetweenPoints: (start: [number, number], end: [number, number]) => Promise<void>
 }
 
 

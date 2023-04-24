@@ -1,4 +1,4 @@
-import logoVite from '../../public/vite.svg'
+import logoVite from '../assets/vite.svg'
 
 export const LogoVite = () => {
   return (
