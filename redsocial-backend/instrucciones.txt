@@ -1,0 +1,4 @@
+# Para ver listado de servicios en brew
+sudo brew services list
+# Para levantar mongodb en brew
+sudo brew services start mongodb-community
